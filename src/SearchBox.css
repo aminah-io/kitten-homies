@@ -1,0 +1,8 @@
+.search {
+  height: 40px;
+  background: rgba(114, 179, 189, 0.6);
+  border-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+}

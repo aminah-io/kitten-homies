@@ -1,0 +1,30 @@
+.container {
+  margin-top: 40px;
+}
+
+.card {
+  width: 300px;
+  height: 400px;
+  margin: 10px;
+  text-align: center;
+  background: rgba(142, 87, 180, 0.5);
+  color: #fff;
+}
+
+.kittenImg {
+  padding-top: 40px;
+  width: 200px;
+  height: 200px;
+}
+
+.grow {
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+.grow:hover,
+.grow:focus {
+  transform: scale(1.05);
+}
