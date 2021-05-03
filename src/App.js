@@ -1,38 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+// import axios from 'axios';
 import './App.css';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 
-function App() {
-  const [data, setData] = useState([]);
-  const [searchField, setSearchField] = useState('');
+import { setSearchField, requestKitties } from './actions';
+
+const mapStateToProps = state => {
+  return {
+    searchField: state.searchKitties.searchField,
+    kitties: state.requestKitties.kitties,
+    isPending: state.requestKitties.isPending,
+    error: state.requestKitties.error
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    onRequestKitties: () => dispatch(requestKitties())
+  }
+};
+
+const App = props => {
+  const { searchField, onSearchChange, onRequestKitties, kitties, isPending } = props;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        'https://jsonplaceholder.typicode.com/users',
-      );
-      setData(result.data);
-    };
-    fetchData();
-  }, []);
+    onRequestKitties();
+  })
 
-  const onSearchChange = (event) => {
-    setSearchField(event.target.value);
-  };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       'https://jsonplaceholder.typicode.com/users',
+  //     );
+  //     setData(result.data);
+  //   };
+  //   fetchData();
+  // }, []);
 
-  const filteredKittens = data.filter(kitten => {
-    return kitten.name.toLowerCase().includes(searchField.toLowerCase());
+  const filteredKitties = kitties.filter(kitty => {
+    return kitty.name.toLowerCase().includes(searchField.toLowerCase());
   });
 
   return (
     <div className='App'>
-      <h1 className='header f1 tc bb b--white'>Kitten Homies</h1>
+      <h1 className='header f1 tc bb b--white'>Kittie Homies</h1>
       <SearchBox searchChangeHandler={onSearchChange} />
-      <CardList kittens={filteredKittens} />
+      <CardList kitties={filteredKitties} />
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

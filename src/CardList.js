@@ -5,13 +5,14 @@ import Card from './Card';
 const CardList = props => {
   return (
     <div className='CardList'>
-      { props.kittens.map(kitten => {
+      { props.kitties.map(kitty => {
           return (
             <Card
-              id={kitten.id}
-              name={kitten.name}
-              email={kitten.email}
-              phone={kitten.phone}
+              key={kitty.id}
+              id={kitty.id}
+              name={kitty.name}
+              email={kitty.email}
+              phone={kitty.phone}
             />
           );
         })
